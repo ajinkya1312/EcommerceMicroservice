@@ -60,6 +60,20 @@ app.post("/product/update", isAuthenticated, async (req, res) => {
     return res.json(product);
 });
 
+app.post("/product/delete", isAuthenticated, async (req, res) => {
+    console.log(req.body);
+    const { id } = req.body;
+    console.log( id );
+    const product = await Product.findOne({ _id : id });
+    if (!product)
+    {
+        return res.json({message: "product not found"});
+    }
+    Product.deleteOne( {_id: id});
+    Product.save();
+    return res.json({message: "product removed"});
+});
+
 app.post("/product/create", isAuthenticated, async (req, res) => {
     const { name, description, price } = req.body;
     const newProduct = new Product({
