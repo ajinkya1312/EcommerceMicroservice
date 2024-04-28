@@ -21,6 +21,15 @@ async function connect() {
 }
 connect();
 
+app.get("/product/products", async (req, res) => {
+    try {
+        const products = await Product.find();
+        return res.json(products);
+    } catch (error) {
+        return res.status(500).json({ error: "Internal Server Error" });
+    }
+});
+
 app.post("/product/buy", isAuthenticated, async (req, res) => {
     const { ids } = req.body;
     const products = await Product.find({ _id: { $in: ids } });
