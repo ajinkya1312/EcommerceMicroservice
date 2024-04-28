@@ -48,6 +48,18 @@ app.post("/product/buy", isAuthenticated, async (req, res) => {
     return res.json(order);
 });
 
+app.post("/product/update", isAuthenticated, async (req, res) => {
+    const { id, price } = req.body;
+    const product = await Product.findOne({ id });
+    if (!product)
+    {
+        return res.json({message: "product with ${id} not found"});
+    }
+    product.price = price;
+    product.save();
+    return res.json(product);
+});
+
 app.post("/product/create", isAuthenticated, async (req, res) => {
     const { name, description, price } = req.body;
     const newProduct = new Product({
