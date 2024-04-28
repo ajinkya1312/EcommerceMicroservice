@@ -6,16 +6,21 @@ const Product = require("./Product");
 const jwt = require("jsonwebtoken");
 const amqp = require("amqplib");
 const isAuthenticated = require("../isAuthenticated");
-var order;
 
-var channel, connection;
-
+// Middleware for parsing JSON bodies
 app.use(express.json());
-mongoose.connect("mongodb://localhost/product-service").then(() => {
-    console.log("Connected to MongoDB");
-}).catch((error) => {
-    console.error("MongoDB connection error:", error);
-});
+
+// Connect to MongoDB
+mongoose.connect("mongodb://localhost/product-service")
+    .then(() => {
+        console.log("Connected to MongoDB");
+    })
+    .catch((error) => {
+        console.error("MongoDB connection error:", error);
+    });
+
+// Initialize RabbitMQ connection
+let channel, connection;
 
 async function connect() {
     try {
@@ -30,6 +35,7 @@ async function connect() {
 }
 connect();
 
+// Route to get all products
 app.get("/product/products", async (req, res) => {
     try {
         const products = await Product.find();
@@ -40,6 +46,7 @@ app.get("/product/products", async (req, res) => {
     }
 });
 
+// Route to buy products
 app.post("/product/buy", isAuthenticated, async (req, res) => {
     try {
         const { ids } = req.body;
@@ -53,6 +60,7 @@ app.post("/product/buy", isAuthenticated, async (req, res) => {
                 })
             )
         );
+        // Listen for product data from RabbitMQ
         channel.consume("PRODUCT", (data) => {
             order = JSON.parse(data.content);
         });
@@ -63,6 +71,7 @@ app.post("/product/buy", isAuthenticated, async (req, res) => {
     }
 });
 
+// Route to update product details
 app.post("/product/update", isAuthenticated, async (req, res) => {
     try {
         const { id, price } = req.body;
@@ -79,6 +88,7 @@ app.post("/product/update", isAuthenticated, async (req, res) => {
     }
 });
 
+// Route to delete a product
 app.post("/product/delete", isAuthenticated, async (req, res) => {
     try {
         const { id } = req.body;
@@ -94,6 +104,7 @@ app.post("/product/delete", isAuthenticated, async (req, res) => {
     }
 });
 
+// Route to create a new product
 app.post("/product/create", isAuthenticated, async (req, res) => {
     try {
         const { name, description, price } = req.body;
@@ -110,6 +121,7 @@ app.post("/product/create", isAuthenticated, async (req, res) => {
     }
 });
 
+// Start the server
 app.listen(PORT, () => {
     console.log(`Product-Service at ${PORT}`);
 });
