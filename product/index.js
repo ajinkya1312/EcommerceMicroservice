@@ -5,13 +5,13 @@ const mongoose = require("mongoose");
 const Product = require("./Product");
 const jwt = require("jsonwebtoken");
 const amqp = require("amqplib");
-const isAuthenticated = require("../isAuthenticated");
+const isAuthenticated = require("./isAuthenticated");
 
 // Middleware for parsing JSON bodies
 app.use(express.json());
 
 // Connect to MongoDB
-mongoose.connect("mongodb://localhost:27017/product-service").then(() => {
+mongoose.connect("mongodb://mongodb:27017/product-service").then(() => {
     console.log("Connected to MongoDB");
 }).catch((error) => {
     console.error("MongoDB connection error:", error);
@@ -22,7 +22,7 @@ let channel, connection;
 
 async function connect() {
     try {
-        const amqpServer = "amqp://localhost:5672";
+        const amqpServer = "amqp://rabbitmq:5672";
         connection = await amqp.connect(amqpServer);
         channel = await connection.createChannel();
         await channel.assertQueue("PRODUCT");

@@ -6,7 +6,7 @@ const User = require("./User");
 const jwt = require("jsonwebtoken");
 
 // Connect to MongoDB
-mongoose.connect("mongodb://localhost:27017/auth-service").then(() => {
+mongoose.connect("mongodb://mongodb:27017/auth-service").then(() => {
     console.log("Connected to MongoDB");
 }).catch((error) => {
     console.error("MongoDB connection error:", error);

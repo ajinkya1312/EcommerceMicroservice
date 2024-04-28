@@ -4,10 +4,10 @@ const PORT = process.env.PORT_ONE || 9090;
 const mongoose = require("mongoose");
 const Order = require("./Order");
 const amqp = require("amqplib");
-const isAuthenticated = require("../isAuthenticated");
+const isAuthenticated = require("./isAuthenticated");
 
 // Connect to MongoDB
-mongoose.connect("mongodb://localhost:27017/order-service").then(() => {
+mongoose.connect("mongodb://mongodb:27017/order-service").then(() => {
     console.log("Connected to MongoDB");
 }).catch((error) => {
     console.error("MongoDB connection error:", error);
@@ -36,7 +36,7 @@ async function createOrder(products, userEmail) {
 // Function to connect to RabbitMQ
 async function connect() {
     try {
-        const amqpServer = "amqp://localhost:5672";
+        const amqpServer = "amqp://rabbitmq:5672";
         // Connect to RabbitMQ server
         connection = await amqp.connect(amqpServer);
         // Create a channel

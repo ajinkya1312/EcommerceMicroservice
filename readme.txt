@@ -2,25 +2,12 @@ E-Commerce Microservices
 This repository contains three microservices for an e-commerce platform: auth-service, product-service, and order-service.
 
 Setup Instructions
-Follow these steps to set up and run the microservices:
+Make sure to have docker installed on your machine.
 
-Install DependenciesBefore running the microservices, ensure that you have installed the necessary dependencies. Navigate to each microservice's root folder and run:
-bash
-Copy code
-npm install
-Run RabbitMQ Docker ContainerRun the following command to start a RabbitMQ Docker container:
-bash
-Copy code
-docker run -p 5672:5672 rabbitmq
-Run MongoDB Docker ContainerStart a MongoDB Docker container by executing the following command:
-bash
-Copy code
-docker run -d --name mongodb -p 27017:27017 mongo
-Run Microservices with NodemonStart each microservice using Nodemon for automatic server restarts. Navigate to each microservice's root folder and run:
-bash
-Copy code
-nodemon
-Import Postman CollectionFor examples and testing the APIs, refer to the Ecommerce API Test.postman_collection.json file provided in this repository.
+Run the following commands under e-commerce directory:
+chmod +x setup_services.sh
+./setup_services.sh
+
 
 Microservices
 
