@@ -1,0 +1,769 @@
+{
+	"info": {
+		"_postman_id": "c5996b36-a62a-49f8-994f-aa33f2523a9d",
+		"name": "Test application",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "34500753"
+	},
+	"item": [
+		{
+			"name": "Register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"test2\",\r\n    \"email\": \"test2@mail.com\",\r\n    \"password\": \"test2\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:7070/auth/register",
+					"host": [
+						"localhost"
+					],
+					"port": "7070",
+					"path": [
+						"auth",
+						"register"
+					]
+				},
+				"description": "Register new user"
+			},
+			"response": [
+				{
+					"name": "Register",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"test2\",\r\n    \"email\": \"test2@mail.com\",\r\n    \"password\": \"test2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:7070/auth/register",
+							"host": [
+								"localhost"
+							],
+							"port": "7070",
+							"path": [
+								"auth",
+								"register"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "200"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"c8-8YkUY6IhlZBAXtlF5BrvaI7sT60\""
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 28 Apr 2024 18:57:52 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"name\": \"test2\",\n    \"email\": \"test2@mail.com\",\n    \"password\": \"60303ae22b998861bce3b28f33eec1be758a213c86c93c076dbe9f558c11c752\",\n    \"created_at\": \"2024-04-28T18:52:18.987Z\",\n    \"_id\": \"662e9c30e16c425e889c2c1c\",\n    \"__v\": 0\n}"
+				}
+			]
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"test1@mail.com\",\r\n    \"password\": \"test1\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:7070/auth/login",
+					"host": [
+						"localhost"
+					],
+					"port": "7070",
+					"path": [
+						"auth",
+						"login"
+					]
+				},
+				"description": "Login with user details; get the auth token to be used for internal APIs"
+			},
+			"response": [
+				{
+					"name": "Login",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"test1@mail.com\",\r\n    \"password\": \"test1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:7070/auth/login",
+							"host": [
+								"localhost"
+							],
+							"port": "7070",
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"status": "Unauthorized",
+					"code": 401,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "32"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"20-iSD3UPPjDbsZQVXEPYJ+9S0t3hY\""
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 28 Apr 2024 18:58:05 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Password Incorrect\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Create",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3QxQG1haWwuY29tIiwibmFtZSI6InRlc3QxIiwiaWF0IjoxNzE0MzMwNjM4fQ.GyWEj54_nJY-aBDAXWef1HMnhBvAJC1sNYbX4r04ZrA",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"product2\",\r\n    \"description\": \"product2 description\",\r\n    \"price\": 1000\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/product/create",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"product",
+						"create"
+					]
+				},
+				"description": "Create a new product; requires auth token recieved from login"
+			},
+			"response": [
+				{
+					"name": "Create",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3QxQG1haWwuY29tIiwibmFtZSI6InRlc3QxIiwiaWF0IjoxNzE0MzMwNjM4fQ.GyWEj54_nJY-aBDAXWef1HMnhBvAJC1sNYbX4r04ZrA",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"product2\",\r\n    \"description\": \"product2 description\",\r\n    \"price\": 1000\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/product/create",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"product",
+								"create"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "150"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"96-uL1N28XfUJlGZD2Edp9o95BtU7I\""
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 28 Apr 2024 19:08:40 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"name\": \"product2\",\n    \"description\": \"product2 description\",\n    \"price\": 1000,\n    \"created_at\": \"2024-04-28T19:06:32.132Z\",\n    \"_id\": \"662e9eb8e1279ddbdfcea61e\",\n    \"__v\": 0\n}"
+				},
+				{
+					"name": "Create",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3QxQG1haWwuY29tIiwibmFtZSI6InRlc3QxIiwiaWF0IjoxNzE0MzMwNjM4fQ.GyWEj54_nJY-aBDAXWef1HMnhBvAJC1sNYbX4r04ZrA",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"product2\",\r\n    \"description\": \"product2 description\",\r\n    \"price\": 1000\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/product/create",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"product",
+								"create"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "150"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"96-uL1N28XfUJlGZD2Edp9o95BtU7I\""
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 28 Apr 2024 19:08:40 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"name\": \"product2\",\n    \"description\": \"product2 description\",\n    \"price\": 1000,\n    \"created_at\": \"2024-04-28T19:06:32.132Z\",\n    \"_id\": \"662e9eb8e1279ddbdfcea61e\",\n    \"__v\": 0\n}"
+				}
+			]
+		},
+		{
+			"name": "Products",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3QxQG1haWwuY29tIiwibmFtZSI6InRlc3QxIiwiaWF0IjoxNzE0MzMwNjM4fQ.GyWEj54_nJY-aBDAXWef1HMnhBvAJC1sNYbX4r04ZrA",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/product/products",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"product",
+						"products"
+					]
+				},
+				"description": "List all products; does not need token"
+			},
+			"response": [
+				{
+					"name": "Products",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3QxQG1haWwuY29tIiwibmFtZSI6InRlc3QxIiwiaWF0IjoxNzE0MzMwNjM4fQ.GyWEj54_nJY-aBDAXWef1HMnhBvAJC1sNYbX4r04ZrA",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/product/products",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"product",
+								"products"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "303"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"12f-LRWCoFCU2+oLQu0iAVsWEsFZtbc\""
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 28 Apr 2024 19:12:29 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"_id\": \"662e9e99e1279ddbdfcea619\",\n        \"name\": \"product1\",\n        \"description\": \"product1 description\",\n        \"price\": 1000,\n        \"created_at\": \"2024-04-28T19:06:32.132Z\",\n        \"__v\": 0\n    },\n    {\n        \"_id\": \"662e9eb8e1279ddbdfcea61e\",\n        \"name\": \"product2\",\n        \"description\": \"product2 description\",\n        \"price\": 1000,\n        \"created_at\": \"2024-04-28T19:06:32.132Z\",\n        \"__v\": 0\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "Delete product",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3QxQG1haWwuY29tIiwibmFtZSI6InRlc3QxIiwiaWF0IjoxNzE0MzMwNjM4fQ.GyWEj54_nJY-aBDAXWef1HMnhBvAJC1sNYbX4r04ZrA",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": \"662e9eb0e1279ddbdfcea61c\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/product/delete",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"product",
+						"delete"
+					]
+				},
+				"description": "Delete a product with a given id; requires auth token"
+			},
+			"response": [
+				{
+					"name": "Delete product",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3QxQG1haWwuY29tIiwibmFtZSI6InRlc3QxIiwiaWF0IjoxNzE0MzMwNjM4fQ.GyWEj54_nJY-aBDAXWef1HMnhBvAJC1sNYbX4r04ZrA",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"662e9eb0e1279ddbdfcea61c\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/product/delete",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"product",
+								"delete"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "29"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"1d-OPjdAcSYuGrmV+lbJgDnLnlQmwM\""
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 28 Apr 2024 19:10:47 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Product removed\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Buy product",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3QxQG1haWwuY29tIiwibmFtZSI6InRlc3QxIiwiaWF0IjoxNzE0MzMwNjM4fQ.GyWEj54_nJY-aBDAXWef1HMnhBvAJC1sNYbX4r04ZrA",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"ids\": [\"662e9e99e1279ddbdfcea619\", \"662e9e99e1279ddbdfcea619\", \"662e9eb8e1279ddbdfcea61e\"]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/product/buy",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"product",
+						"buy"
+					]
+				},
+				"description": "Buy products; requires auth token"
+			},
+			"response": [
+				{
+					"name": "Buy product",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3QxQG1haWwuY29tIiwibmFtZSI6InRlc3QxIiwiaWF0IjoxNzE0MzMwNjM4fQ.GyWEj54_nJY-aBDAXWef1HMnhBvAJC1sNYbX4r04ZrA",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"ids\": [\"662e9e99e1279ddbdfcea619\", \"662e9e99e1279ddbdfcea619\", \"662e9eb8e1279ddbdfcea61e\"]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/product/buy",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"product",
+								"buy"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "256"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"100-OulLxkVaBbFlk40NkEPVPbtksnk\""
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 28 Apr 2024 19:24:33 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"newOrder\": {\n        \"products\": [\n            {\n                \"_id\": \"662e9e99e1279ddbdfcea619\"\n            },\n            {\n                \"_id\": \"662e9e99e1279ddbdfcea619\"\n            },\n            {\n                \"_id\": \"662e9eb8e1279ddbdfcea61e\"\n            }\n        ],\n        \"user\": \"test1@mail.com\",\n        \"total_price\": 3000,\n        \"created_at\": \"2024-04-28T18:52:48.636Z\",\n        \"_id\": \"662ea27053df8b769b85a32b\",\n        \"__v\": 0\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "Show orders for a given user",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3QxQG1haWwuY29tIiwibmFtZSI6InRlc3QxIiwiaWF0IjoxNzE0MzMwNjM4fQ.GyWEj54_nJY-aBDAXWef1HMnhBvAJC1sNYbX4r04ZrA",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:9090/order/orders",
+					"host": [
+						"localhost"
+					],
+					"port": "9090",
+					"path": [
+						"order",
+						"orders"
+					]
+				},
+				"description": "Requires auth token only"
+			},
+			"response": [
+				{
+					"name": "Show orders for a given user",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3QxQG1haWwuY29tIiwibmFtZSI6InRlc3QxIiwiaWF0IjoxNzE0MzMwNjM4fQ.GyWEj54_nJY-aBDAXWef1HMnhBvAJC1sNYbX4r04ZrA",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:9090/order/orders",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"order",
+								"orders"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "3102"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"c1e-GlgRYupwAzU6syr4RQsTntsE4TY\""
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 28 Apr 2024 19:25:40 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"orders\": [\n        {\n            \"_id\": \"662e9f8853df8b769b85a2f8\",\n            \"products\": [\n                {\n                    \"_id\": \"662e9e99e1279ddbdfcea619\"\n                }\n            ],\n            \"user\": \"test1@mail.com\",\n            \"total_price\": 1000,\n            \"created_at\": \"2024-04-28T18:52:48.636Z\",\n            \"__v\": 0\n        },\n        {\n            \"_id\": \"662e9fb553df8b769b85a2fb\",\n            \"products\": [\n                {\n                    \"_id\": \"662e9e99e1279ddbdfcea619\"\n                }\n            ],\n            \"user\": \"test1@mail.com\",\n            \"total_price\": 1000,\n            \"created_at\": \"2024-04-28T18:52:48.636Z\",\n            \"__v\": 0\n        },\n        {\n            \"_id\": \"662e9fc653df8b769b85a2fe\",\n            \"products\": [\n                {\n                    \"_id\": \"662e9e99e1279ddbdfcea619\"\n                }\n            ],\n            \"user\": \"test1@mail.com\",\n            \"total_price\": 1000,\n            \"created_at\": \"2024-04-28T18:52:48.636Z\",\n            \"__v\": 0\n        },\n        {\n            \"_id\": \"662e9fce53df8b769b85a301\",\n            \"products\": [\n                {\n                    \"_id\": \"662e9e99e1279ddbdfcea619\"\n                }\n            ],\n            \"user\": \"test1@mail.com\",\n            \"total_price\": 1000,\n            \"created_at\": \"2024-04-28T18:52:48.636Z\",\n            \"__v\": 0\n        },\n        {\n            \"_id\": \"662e9fde53df8b769b85a304\",\n            \"products\": [\n                {\n                    \"_id\": \"662e9e99e1279ddbdfcea619\"\n                }\n            ],\n            \"user\": \"test1@mail.com\",\n            \"total_price\": 1000,\n            \"created_at\": \"2024-04-28T18:52:48.636Z\",\n            \"__v\": 0\n        },\n        {\n            \"_id\": \"662ea08a53df8b769b85a30d\",\n            \"products\": [\n                {\n                    \"_id\": \"662e9e99e1279ddbdfcea619\"\n                }\n            ],\n            \"user\": \"test1@mail.com\",\n            \"total_price\": 1000,\n            \"created_at\": \"2024-04-28T18:52:48.636Z\",\n            \"__v\": 0\n        },\n        {\n            \"_id\": \"662ea09b53df8b769b85a310\",\n            \"products\": [\n                {\n                    \"_id\": \"662e9e99e1279ddbdfcea619\"\n                }\n            ],\n            \"user\": \"test1@mail.com\",\n            \"total_price\": 1000,\n            \"created_at\": \"2024-04-28T18:52:48.636Z\",\n            \"__v\": 0\n        },\n        {\n            \"_id\": \"662ea17953df8b769b85a313\",\n            \"products\": [],\n            \"user\": \"test1@mail.com\",\n            \"total_price\": 0,\n            \"created_at\": \"2024-04-28T18:52:48.636Z\",\n            \"__v\": 0\n        },\n        {\n            \"_id\": \"662ea19453df8b769b85a315\",\n            \"products\": [],\n            \"user\": \"test1@mail.com\",\n            \"total_price\": 0,\n            \"created_at\": \"2024-04-28T18:52:48.636Z\",\n            \"__v\": 0\n        },\n        {\n            \"_id\": \"662ea1a053df8b769b85a317\",\n            \"products\": [\n                {\n                    \"_id\": \"662e9e99e1279ddbdfcea619\"\n                },\n                {\n                    \"_id\": \"662e9eb8e1279ddbdfcea61e\"\n                }\n            ],\n            \"user\": \"test1@mail.com\",\n            \"total_price\": 2000,\n            \"created_at\": \"2024-04-28T18:52:48.636Z\",\n            \"__v\": 0\n        },\n        {\n            \"_id\": \"662ea1a553df8b769b85a31b\",\n            \"products\": [\n                {\n                    \"_id\": \"662e9e99e1279ddbdfcea619\"\n                },\n                {\n                    \"_id\": \"662e9eb8e1279ddbdfcea61e\"\n                }\n            ],\n            \"user\": \"test1@mail.com\",\n            \"total_price\": 2000,\n            \"created_at\": \"2024-04-28T18:52:48.636Z\",\n            \"__v\": 0\n        },\n        {\n            \"_id\": \"662ea1cb53df8b769b85a31f\",\n            \"products\": [],\n            \"user\": \"test1@mail.com\",\n            \"total_price\": 0,\n            \"created_at\": \"2024-04-28T18:52:48.636Z\",\n            \"__v\": 0\n        },\n        {\n            \"_id\": \"662ea1cd53df8b769b85a321\",\n            \"products\": [],\n            \"user\": \"test1@mail.com\",\n            \"total_price\": 0,\n            \"created_at\": \"2024-04-28T18:52:48.636Z\",\n            \"__v\": 0\n        },\n        {\n            \"_id\": \"662ea23653df8b769b85a323\",\n            \"products\": [\n                {\n                    \"_id\": \"662e9e99e1279ddbdfcea619\"\n                },\n                {\n                    \"_id\": \"662e9eb8e1279ddbdfcea61e\"\n                }\n            ],\n            \"user\": \"test1@mail.com\",\n            \"total_price\": 2000,\n            \"created_at\": \"2024-04-28T18:52:48.636Z\",\n            \"__v\": 0\n        },\n        {\n            \"_id\": \"662ea23853df8b769b85a327\",\n            \"products\": [\n                {\n                    \"_id\": \"662e9e99e1279ddbdfcea619\"\n                },\n                {\n                    \"_id\": \"662e9eb8e1279ddbdfcea61e\"\n                }\n            ],\n            \"user\": \"test1@mail.com\",\n            \"total_price\": 2000,\n            \"created_at\": \"2024-04-28T18:52:48.636Z\",\n            \"__v\": 0\n        },\n        {\n            \"_id\": \"662ea27053df8b769b85a32b\",\n            \"products\": [\n                {\n                    \"_id\": \"662e9e99e1279ddbdfcea619\"\n                },\n                {\n                    \"_id\": \"662e9e99e1279ddbdfcea619\"\n                },\n                {\n                    \"_id\": \"662e9eb8e1279ddbdfcea61e\"\n                }\n            ],\n            \"user\": \"test1@mail.com\",\n            \"total_price\": 3000,\n            \"created_at\": \"2024-04-28T18:52:48.636Z\",\n            \"__v\": 0\n        },\n        {\n            \"_id\": \"662ea27153df8b769b85a330\",\n            \"products\": [\n                {\n                    \"_id\": \"662e9e99e1279ddbdfcea619\"\n                },\n                {\n                    \"_id\": \"662e9e99e1279ddbdfcea619\"\n                },\n                {\n                    \"_id\": \"662e9eb8e1279ddbdfcea61e\"\n                }\n            ],\n            \"user\": \"test1@mail.com\",\n            \"total_price\": 3000,\n            \"created_at\": \"2024-04-28T18:52:48.636Z\",\n            \"__v\": 0\n        }\n    ]\n}"
+				}
+			]
+		}
+	]
+}

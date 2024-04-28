@@ -47,6 +47,7 @@ app.get("/product/products", async (req, res) => {
 
 app.post("/product/buy", isAuthenticated, async (req, res) => {
     try {
+        let order;
         const { ids } = req.body;
 
         // Initialize an empty array to store all products
@@ -78,14 +79,12 @@ app.post("/product/buy", isAuthenticated, async (req, res) => {
                 })
             )
         );
-
         // Listen for product data from RabbitMQ
         channel.consume("PRODUCT", (data) => {
             order = JSON.parse(data.content);
         });
-
         // Return the order details
-        return res.json(order);
+        return res.json({message: "order placed successfully"});
     } catch (error) {
         console.error("Error buying products:", error);
         return res.status(500).json({ error: "Internal Server Error" });
