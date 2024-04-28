@@ -77,7 +77,6 @@ app.get("/order/orders", isAuthenticated, async (req, res) => {
     try {
         // Get user email from authenticated request
         const email = req.user.email;
-        console.log(email);
         // Find orders for the user
         const orders = await Order.find({ user: email });
         if (orders.length === 0 || !orders) {

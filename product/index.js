@@ -35,7 +35,6 @@ connect();
 
 // Route to get all products
 app.get("/product/products", async (req, res) => {
-    console.log("Here");
     try {
         const products = await Product.find();
         return res.json(products);
@@ -49,7 +48,10 @@ app.post("/product/buy", isAuthenticated, async (req, res) => {
     try {
         let order;
         const { ids } = req.body;
-
+        if (ids.length === 0)
+        {
+            return res.json("Invalid product values provided");
+        }
         // Initialize an empty array to store all products
         let products = [];
 
@@ -98,7 +100,10 @@ app.post("/product/update", isAuthenticated, async (req, res) => {
     try {
         const { id, price, version } = req.body;
         const product = await Product.findOne({ _id: id });
-
+        if (id.length === 0 || price <= 0 || version < 0)
+        {
+            return res.json("Invalid product values provided");
+        }
         // Check if the product exists
         if (!product) {
             return res.status(404).json({ message: `Product with id ${id} not found` });
@@ -132,13 +137,17 @@ app.post("/product/delete", isAuthenticated, async (req, res) => {
     try {
         const { id } = req.body;
         const product = await Product.findOne({ _id: id });
+        if (id.length === 0)
+        {
+            return res.json("Invalid product values provided");
+        }
         // Do not allow deletion of products not owned by user.
+        if (!product) {
+            return res.json({ message: "Product not found" });
+        }
         if (product.email !== req.user.email)
         {
             return res.json({message: "Product is not owned by user to delete"});
-        }
-        if (!product || product.email !== req.user.email) {
-            return res.json({ message: "Product not found" });
         }
         await Product.deleteOne({ _id: id });
         return res.json({ message: "Product removed" });
@@ -153,6 +162,10 @@ app.post("/product/create", isAuthenticated, async (req, res) => {
     try {
         const { name, description, price } = req.body;
         const isFound = await Product.findOne({ email: req.user.email, name: name});
+        if (name.length === 0 || price <= 0)
+        {
+            return res.json("Invalid product values provided");
+        }
         if (isFound)
         {
             return res.json("Product already exists");

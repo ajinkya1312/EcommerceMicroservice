@@ -5,8 +5,31 @@ Setup Instructions
 Make sure to have docker installed on your machine.
 
 Run the following commands under e-commerce directory:
-chmod +x setup_services.sh
-./setup_services.sh
+# Create Docker network
+docker network create e-commerce
+
+# Run MongoDB container
+docker run --name mongodb --network e-commerce mongo
+
+# Run RabbitMQ container
+docker run --name rabbitmq --network e-commerce rabbitmq
+
+Run the following commands under auth folder
+# Build and run auth-service
+docker build -t auth-service .
+docker run --name auth-service --network e-commerce -p 7070:7070 auth-service &
+
+Run the following commands under order folder
+# Build and run order-service
+docker build -t order-service .
+docker run --name order-service --network e-commerce -p 9090:9090 order-service &
+
+Run the following commands under product folder
+# Build and run product-service
+docker build -t product-service .
+docker run --name product-service --network e-commerce -p 8080:8080 product-service &
+
+# Services setup complete.
 
 
 Microservices
@@ -62,3 +85,6 @@ MongoDB stores data in collections with specific schemas for products, users, an
 An authorization middleware verifies user authentication and permissions.
 Optimistic locking ensures data consistency by preventing concurrent modifications to product information.
 These mechanisms collectively enable secure and reliable communication and data management within the e-commerce microservices architecture.
+
+
+PS: Please make sure to update the header with "authorization": "Bearer xxxxxxx" (replace xxxxxxx with token recieved from login.)
