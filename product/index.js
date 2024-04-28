@@ -11,13 +11,11 @@ const isAuthenticated = require("../isAuthenticated");
 app.use(express.json());
 
 // Connect to MongoDB
-mongoose.connect("mongodb://localhost/product-service")
-    .then(() => {
-        console.log("Connected to MongoDB");
-    })
-    .catch((error) => {
-        console.error("MongoDB connection error:", error);
-    });
+mongoose.connect("mongodb://localhost:27017/product-service").then(() => {
+    console.log("Connected to MongoDB");
+}).catch((error) => {
+    console.error("MongoDB connection error:", error);
+});
 
 // Initialize RabbitMQ connection
 let channel, connection;
@@ -37,6 +35,7 @@ connect();
 
 // Route to get all products
 app.get("/product/products", async (req, res) => {
+    console.log("Here");
     try {
         const products = await Product.find();
         return res.json(products);
@@ -46,30 +45,54 @@ app.get("/product/products", async (req, res) => {
     }
 });
 
-// Route to buy products
 app.post("/product/buy", isAuthenticated, async (req, res) => {
     try {
         const { ids } = req.body;
-        const products = await Product.find({ _id: { $in: ids } });
+
+        // Initialize an empty array to store all products
+        let products = [];
+
+        // Iterate through the IDs and find each corresponding product
+        for (const id of ids) {
+            const product = await Product.findById(id);
+            if (product) {
+                // Add the product to the array
+                products.push(product);
+            }
+        }
+
+        // Calculate the total price considering all products
+        let total = 0;
+        products.forEach(product => {
+            total += product.price;
+        });
+
+        // Send order to RabbitMQ
         channel.sendToQueue(
             "ORDER",
             Buffer.from(
                 JSON.stringify({
                     products,
+                    total_price: total,
                     userEmail: req.user.email,
                 })
             )
         );
+
         // Listen for product data from RabbitMQ
         channel.consume("PRODUCT", (data) => {
             order = JSON.parse(data.content);
         });
+
+        // Return the order details
         return res.json(order);
     } catch (error) {
         console.error("Error buying products:", error);
         return res.status(500).json({ error: "Internal Server Error" });
     }
 });
+
+
 
 // Route to update product details
 app.post("/product/update", isAuthenticated, async (req, res) => {
