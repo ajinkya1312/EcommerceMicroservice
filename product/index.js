@@ -96,13 +96,30 @@ app.post("/product/buy", isAuthenticated, async (req, res) => {
 // Route to update product details
 app.post("/product/update", isAuthenticated, async (req, res) => {
     try {
-        const { id, price } = req.body;
+        const { id, price, version } = req.body;
         const product = await Product.findOne({ _id: id });
+
+        // Check if the product exists
         if (!product) {
-            return res.json({ message: `Product with id ${id} not found` });
+            return res.status(404).json({ message: `Product with id ${id} not found` });
         }
+        // Do not allow updation of products not owned by user.
+        if (product.email !== req.user.email)
+        {
+            return res.json({message: "Product is not owned by user to update"});
+        }
+        // Check if the provided version matches the current version of the product
+        if (product.version !== version) {
+            return res.status(409).json({ message: `Concurrent modification detected for product ${id}` });
+        }
+
+        // Update the product details
         product.price = price;
+        product.version++; // Increment the version
+
+        // Save the updated product
         await product.save();
+
         return res.json(product);
     } catch (error) {
         console.error("Error updating product:", error);
@@ -115,7 +132,12 @@ app.post("/product/delete", isAuthenticated, async (req, res) => {
     try {
         const { id } = req.body;
         const product = await Product.findOne({ _id: id });
-        if (!product) {
+        // Do not allow deletion of products not owned by user.
+        if (product.email !== req.user.email)
+        {
+            return res.json({message: "Product is not owned by user to delete"});
+        }
+        if (!product || product.email !== req.user.email) {
             return res.json({ message: "Product not found" });
         }
         await Product.deleteOne({ _id: id });
@@ -130,10 +152,16 @@ app.post("/product/delete", isAuthenticated, async (req, res) => {
 app.post("/product/create", isAuthenticated, async (req, res) => {
     try {
         const { name, description, price } = req.body;
+        const isFound = await Product.findOne({ email: req.user.email, name: name});
+        if (isFound)
+        {
+            return res.json("Product already exists");
+        }
         const newProduct = new Product({
             name,
             description,
             price,
+            email: req.user.email
         });
         await newProduct.save();
         return res.json(newProduct);
