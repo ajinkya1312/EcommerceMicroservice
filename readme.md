@@ -60,6 +60,7 @@ Products orders can only be viewed and cannot be deleted/updated.
 Product can only be updated for price.
 Products do not have quantities associated.
 Delivery location and status are not maintained.
+Orders with invalid product ids would no be purchased partially.
 
 ## Application briefing 
 ## Messaging with Queue
