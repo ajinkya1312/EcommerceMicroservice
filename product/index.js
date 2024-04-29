@@ -65,11 +65,19 @@ app.post("/product/buy", isAuthenticated, async (req, res) => {
 
         // Iterate through the IDs and find each corresponding product
         for (const id of ids) {
+            if (id === "")
+            {
+                console.log("invalid product details");
+                continue;
+            }
             const product = await Product.findById(id);
             if (product) {
                 // Add the product to the array
                 products.push(product);
+            } else {
+                return res.json({message: "invalid product ids provided"});
             }
+
         }
 
         // Calculate the total price considering all products
